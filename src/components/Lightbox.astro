@@ -1,0 +1,189 @@
+---
+interface LightboxPhoto {
+	slug: string;
+	title: string;
+	description: string;
+	location: string;
+	camera: string;
+	src: string;
+	width: number;
+	height: number;
+}
+
+interface Props {
+	photos: LightboxPhoto[];
+	autoOpenSlug?: string;
+}
+
+const { photos, autoOpenSlug } = Astro.props;
+---
+
+<dialog id="lightbox" aria-label="Photo viewer">
+	<button type="button" class="lightbox-close" aria-label="Close">&#10005;</button>
+	<button type="button" class="lightbox-prev" aria-label="Previous photo">&#8249;</button>
+	<figure>
+		<img id="lightbox-img" alt="" />
+		<figcaption>
+			<h2 id="lightbox-title"></h2>
+			<p id="lightbox-description"></p>
+			<p id="lightbox-attrs" class="lightbox-attrs"></p>
+		</figcaption>
+	</figure>
+	<button type="button" class="lightbox-next" aria-label="Next photo">&#8250;</button>
+</dialog>
+
+<script define:vars={{ photos, autoOpenSlug }}>
+	const dialog = document.getElementById('lightbox');
+	const imgEl = document.getElementById('lightbox-img');
+	const titleEl = document.getElementById('lightbox-title');
+	const descEl = document.getElementById('lightbox-description');
+	const attrsEl = document.getElementById('lightbox-attrs');
+
+	let currentIndex = -1;
+
+	function render(index) {
+		const photo = photos[index];
+		if (!photo) return;
+		currentIndex = index;
+		imgEl.src = photo.src;
+		imgEl.width = photo.width;
+		imgEl.height = photo.height;
+		imgEl.alt = photo.title;
+		titleEl.textContent = photo.title;
+		descEl.textContent = photo.description;
+		attrsEl.textContent = [photo.location, photo.camera].filter(Boolean).join(' · ');
+		history.replaceState(null, '', `#${photo.slug}`);
+	}
+
+	function open(index) {
+		render(index);
+		if (!dialog.open) dialog.showModal();
+	}
+
+	function close() {
+		if (dialog.open) dialog.close();
+		history.replaceState(null, '', location.pathname);
+	}
+
+	function step(delta) {
+		if (currentIndex === -1) return;
+		const next = (currentIndex + delta + photos.length) % photos.length;
+		render(next);
+	}
+
+	document.addEventListener('click', (event) => {
+		const trigger = event.target.closest('[data-lightbox-index]');
+		if (!trigger) return;
+		event.preventDefault();
+		open(Number(trigger.dataset.lightboxIndex));
+	});
+
+	dialog.querySelector('.lightbox-close').addEventListener('click', close);
+	dialog.querySelector('.lightbox-prev').addEventListener('click', () => step(-1));
+	dialog.querySelector('.lightbox-next').addEventListener('click', () => step(1));
+
+	dialog.addEventListener('click', (event) => {
+		if (event.target === dialog) close();
+	});
+
+	dialog.addEventListener('close', () => {
+		history.replaceState(null, '', location.pathname);
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if (!dialog.open) return;
+		if (event.key === 'ArrowLeft') step(-1);
+		if (event.key === 'ArrowRight') step(1);
+	});
+
+	const initialSlug = autoOpenSlug || location.hash.slice(1);
+	if (initialSlug) {
+		const index = photos.findIndex((p) => p.slug === initialSlug);
+		if (index !== -1) open(index);
+	}
+</script>
+
+<style>
+	dialog#lightbox {
+		border: none;
+		border-radius: 0.5rem;
+		padding: 0;
+		max-width: min(90vw, 60rem);
+		max-height: 90vh;
+		background: var(--gallery-bg, #fff);
+		color: var(--gallery-fg, #111);
+		position: relative;
+	}
+
+	dialog#lightbox::backdrop {
+		background: rgba(0, 0, 0, 0.75);
+	}
+
+	dialog#lightbox figure {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		max-height: 90vh;
+	}
+
+	dialog#lightbox img {
+		max-width: 100%;
+		max-height: 70vh;
+		width: auto;
+		height: auto;
+		object-fit: contain;
+		display: block;
+		margin: 0 auto;
+	}
+
+	dialog#lightbox figcaption {
+		padding: 1rem 1.25rem;
+		border-top: 1px solid var(--gallery-border, #e3e3e6);
+	}
+
+	dialog#lightbox figcaption h2 {
+		margin: 0 0 0.25rem;
+		font-size: 1.1rem;
+	}
+
+	dialog#lightbox figcaption p {
+		margin: 0.15rem 0;
+		color: var(--gallery-muted, #565861);
+		font-size: 0.9rem;
+	}
+
+	.lightbox-attrs {
+		font-size: 0.8rem !important;
+	}
+
+	.lightbox-close,
+	.lightbox-prev,
+	.lightbox-next {
+		position: absolute;
+		z-index: 1;
+		background: rgba(0, 0, 0, 0.55);
+		color: #fff;
+		border: none;
+		border-radius: 999px;
+		width: 2.5rem;
+		height: 2.5rem;
+		font-size: 1.25rem;
+		line-height: 1;
+		cursor: pointer;
+	}
+
+	.lightbox-close {
+		top: 0.75rem;
+		right: 0.75rem;
+	}
+
+	.lightbox-prev {
+		top: 35%;
+		left: 0.75rem;
+	}
+
+	.lightbox-next {
+		top: 35%;
+		right: 0.75rem;
+	}
+</style>
