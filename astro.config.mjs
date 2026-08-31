@@ -4,6 +4,8 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://exitcode01.github.io',
+	base: '/portfolio',
 	integrations: [
 		starlight({
 			title: 'Haressh S',
