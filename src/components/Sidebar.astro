@@ -1,0 +1,28 @@
+---
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+
+const { sidebar, id } = Astro.locals.starlightRoute;
+
+const topSegment = id.split('/')[0];
+
+function firstSegment(href: string) {
+	return href.replace(/^\/|\/$/g, '').split('/')[0];
+}
+
+function belongsToCurrentSection(entry: (typeof sidebar)[number]): boolean {
+	if (entry.type === 'link') return firstSegment(entry.href) === topSegment;
+	return entry.entries.some(belongsToCurrentSection);
+}
+
+const scopedSidebar = sidebar.filter(belongsToCurrentSection);
+---
+
+<SidebarPersister>
+	<SidebarSublist sublist={scopedSidebar} />
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+	<MobileMenuFooter />
+</div>

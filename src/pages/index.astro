@@ -1,0 +1,672 @@
+---
+import GalleryLayout from '../layouts/GalleryLayout.astro';
+
+const icons: Record<string, string> = {
+	linkedin:
+		'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S.02 4.88.02 3.5C.02 2.12 1.13 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V23h-4v-6.7c0-1.6-.03-3.66-2.23-3.66-2.24 0-2.58 1.75-2.58 3.55V23h-4V8.5z"/></svg>',
+	github:
+		'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.08.78 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.68.8.56A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>',
+	mastodon:
+		'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M16.45 17.77c2.77-.33 5.18-2.03 5.49-3.58.47-2.45.44-5.97.44-5.97 0-4.77-3.15-6.17-3.15-6.17-1.58-.72-4.3-1.03-7.13-1.05h-.07c-2.83.02-5.55.33-7.13 1.05 0 0-3.14 1.4-3.14 6.17v.91c-.01.88-.02 1.86 0 2.88.12 4.67.87 9.27 5.2 10.4 2 .53 3.72.64 5.1.57 2.51-.14 3.92-.9 3.92-.9l-.08-1.8s-1.8.56-3.8.5c-2-.08-4.1-.22-4.43-2.66a4.97 4.97 0 0 1-.04-.68s1.96.48 4.44.59c1.51.07 2.94-.09 4.38-.26Zm2.22-3.4h-2.3v-5.6c0-1.19-.5-1.79-1.5-1.79-1.1 0-1.66.71-1.66 2.12v3.07h-2.3V9.1c0-1.4-.55-2.12-1.65-2.12-1 0-1.5.6-1.5 1.78v5.61h-2.3V8.6c0-1.18.3-2.12.9-2.81a3.17 3.17 0 0 1 2.47-1.05c1.18 0 2.07.45 2.66 1.35l.57.96.58-.96a2.97 2.97 0 0 1 2.66-1.35c1.01 0 1.83.36 2.46 1.05.6.7.9 1.63.9 2.81v5.78Z"/></svg>',
+	mail: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>',
+};
+
+const socials = [
+	{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/hressh/', icon: 'linkedin' },
+	{ label: 'GitHub', href: 'https://github.com/exitcode01', icon: 'github' },
+	{ label: 'Mastodon', href: 'https://mastodon.social/@hash96', icon: 'mastodon' },
+	{ label: 'Email', href: 'mailto:haressh@proton.me', icon: 'mail' },
+];
+
+const tags = [
+	{ label: 'Docs-as-Code', highlight: true },
+	{ label: 'LLM Agents', highlight: true },
+	{ label: 'OpenStreetMap', highlight: false },
+	{ label: 'Ollama', highlight: false },
+	{ label: 'CI/CD', highlight: false },
+	{ label: 'Git', highlight: false },
+	{ label: 'Photography', highlight: false },
+];
+
+const works = [
+	{
+		title: 'Release Note Agent',
+		badge: 'SHIPPED',
+		desc: 'LLM pipeline that parses git diffs, classifies changes, and drafts structured release notes — zero human in the loop for patch releases.',
+		stack: ['Mistral', 'Ollama', 'Python', 'Git'],
+	},
+	{
+		title: 'Commit Standardizer',
+		badge: 'CI/CD',
+		desc: 'GitHub Action that runs Qwen locally, rewrites non-conventional commits before merge, and keeps changelogs machine-readable.',
+		stack: ['Qwen', 'GitHub Actions', 'Ollama'],
+	},
+	{
+		title: 'Docs-to-Skills Pipeline',
+		badge: 'INTERNAL',
+		desc: 'Turns existing documentation into reusable skill files for LLM agents — structured extraction, dedup, and slot-filling via Llama.',
+		stack: ['Llama', 'Docs-as-Code', 'YAML'],
+	},
+	{
+		title: 'OpenStreetMap Mapping',
+		badge: 'OPEN SOURCE',
+		desc: 'Active contributor mapping local neighborhoods — roads, POIs, and building footprints. Writing about the process on the blog.',
+		stack: ['JOSM', 'OSM', 'Field survey'],
+	},
+];
+
+const terminalLines = [
+	{ text: '$ git log --oneline -5', cls: 'dollar' },
+	{ text: 'a3f8c12 fix: null ptr in auth middleware', cls: 'muted' },
+	{ text: 'b9e1d04 feat: add rate limiting to /api/v2', cls: 'muted' },
+	{ text: '7c2a891 chore: bump deps', cls: 'muted' },
+	{ text: 'd5f3b22 fix: memory leak in session store', cls: 'muted' },
+	{ text: 'e8a1c60 feat: dark mode toggle', cls: 'muted' },
+	{ text: '', cls: 'plain' },
+	{ text: '$ python release_agent.py --model mistral', cls: 'dollar' },
+	{ text: '', cls: 'plain' },
+	{ text: '  Loading model  mistral:7b-instruct', cls: 'label' },
+	{ text: '  Parsing diff   HEAD~5..HEAD', cls: 'label' },
+	{ text: '  Classifying    5 commits →', cls: 'label' },
+	{ text: '                  2 feat · 2 fix · 1 chore', cls: 'success' },
+	{ text: '', cls: 'plain' },
+	{ text: '  Generating release notes...', cls: 'muted', pause: 800 },
+	{ text: '', cls: 'plain' },
+	{ text: '─────────────────────────────────', cls: 'comment' },
+	{ text: '  v2.4.1  Release Notes', cls: 'output' },
+	{ text: '─────────────────────────────────', cls: 'comment' },
+	{ text: '', cls: 'plain' },
+	{ text: '  ✦ Features', cls: 'added' },
+	{ text: '    · Rate limiting on /api/v2 (100 req/min)', cls: 'output' },
+	{ text: '    · Dark mode toggle in user preferences', cls: 'output' },
+	{ text: '', cls: 'plain' },
+	{ text: '  ✦ Bug Fixes', cls: 'removed' },
+	{ text: '    · Resolved null pointer in auth middleware', cls: 'output' },
+	{ text: '    · Fixed memory leak in session store', cls: 'output' },
+	{ text: '', cls: 'plain' },
+	{ text: '─────────────────────────────────', cls: 'comment' },
+	{ text: '  ✓ Written to CHANGELOG.md', cls: 'success' },
+	{ text: '  ✓ PR opened  #1847', cls: 'success' },
+];
+---
+
+<GalleryLayout
+	title="Haressh S — Technical Writer"
+	description="Technical Writer and AI Documentation Engineer. Resume, technical blogs, OpenStreetMap writeups, and photography."
+	fullBleed
+>
+	<div class="page">
+		<div class="grid-bg" aria-hidden="true"></div>
+
+		<!-- Hero -->
+		<div class="hero">
+			<div class="hero-left">
+				<div class="eyebrow">
+					<span class="eyebrow-dot" aria-hidden="true"></span>
+					Available for collaboration
+				</div>
+
+				<h1 class="hero-name">Haressh&nbsp;<span class="accent">S</span></h1>
+				<p class="hero-title">Technical Writer · AI Documentation Engineer</p>
+
+				<p class="hero-bio">
+					<strong>5+ years</strong> building docs infrastructure at Zoho — shipping <strong
+						>LLM agents</strong
+					> that write release notes from git diffs, enforce commit standards in CI/CD, and turn legacy
+					docs into reusable skill files. Local models: <strong>Mistral, Llama, Qwen via Ollama.</strong>
+				</p>
+
+				<div class="tags">
+					{tags.map((t) => (
+						<span class={`tag${t.highlight ? ' highlight' : ''}`}>{t.label}</span>
+					))}
+				</div>
+
+				<div class="actions">
+					<a class="btn btn-primary" href="/resume/">Resume ↗</a>
+					<a class="btn btn-ghost" href="/blog/">Blog</a>
+					<a class="btn btn-ghost" href="/photography/">Photography</a>
+				</div>
+
+				<div class="socials">
+					{socials.map((s) => (
+						<a
+							href={s.href}
+							class="social-link"
+							aria-label={s.label}
+							rel={s.href.startsWith('http') ? 'me' : undefined}
+						>
+							<span set:html={icons[s.icon]} />
+							{s.label.toLowerCase()}
+						</a>
+					))}
+				</div>
+			</div>
+
+			<!-- Terminal -->
+			<div class="terminal-wrap">
+				<div class="terminal" aria-label="Live demo: LLM agent generating release notes from a git diff">
+					<div class="term-bar">
+						<div class="term-dots" aria-hidden="true">
+							<div class="term-dot td-red"></div>
+							<div class="term-dot td-amber"></div>
+							<div class="term-dot td-green"></div>
+						</div>
+						<div class="term-title">release-agent · docs-pipeline</div>
+					</div>
+					<div class="term-body" id="term-body" aria-live="polite"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Stats -->
+		<div class="stats-row" aria-label="Career highlights">
+			<div class="stat-cell">
+				<span class="stat-num">5+</span>
+				<span class="stat-label">Years shipping docs</span>
+			</div>
+			<div class="stat-cell">
+				<span class="stat-num">3</span>
+				<span class="stat-label">LLM agents in prod</span>
+			</div>
+			<div class="stat-cell">
+				<span class="stat-num">OSM</span>
+				<span class="stat-label">Active mapper</span>
+			</div>
+		</div>
+
+		<!-- Work -->
+		<div class="section">
+			<div class="section-eyebrow">What I build</div>
+			<div class="work-grid">
+				{works.map((w) => (
+					<div class="work-card">
+						<div class="work-card-header">
+							<span class="work-card-title">{w.title}</span>
+							<span class="work-card-badge">{w.badge}</span>
+						</div>
+						<p class="work-card-desc">{w.desc}</p>
+						<div class="work-card-stack">
+							{w.stack.map((s) => (
+								<span class="stack-pill">{s}</span>
+							))}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
+</GalleryLayout>
+
+<script define:vars={{ terminalLines }}>
+	const body = document.getElementById('term-body');
+
+	const colorMap = {
+		dollar:  { before: '<span class="t-dollar">$ </span><span class="t-cmd">', after: '</span>' },
+		muted:   { before: '<span class="t-muted">', after: '</span>' },
+		label:   { before: '<span class="t-label">', after: '</span>' },
+		success: { before: '<span class="t-success">', after: '</span>' },
+		comment: { before: '<span class="t-comment">', after: '</span>' },
+		output:  { before: '<span class="t-output">', after: '</span>' },
+		added:   { before: '<span class="t-added">', after: '</span>' },
+		removed: { before: '<span class="t-removed">', after: '</span>' },
+		plain:   { before: '', after: '' },
+	};
+
+	function escHtml(s) {
+		return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	}
+
+	function addLine(text, cls) {
+		const span = document.createElement('span');
+		span.className = 'term-line';
+		const map = colorMap[cls] || colorMap.plain;
+		span.innerHTML = text === '' ? '&nbsp;' : map.before + escHtml(text) + map.after;
+		body.appendChild(span);
+		body.scrollTop = body.scrollHeight;
+	}
+
+	function runLines(index = 0) {
+		if (index >= terminalLines.length) {
+			const cur = document.createElement('span');
+			cur.className = 'term-line';
+			cur.innerHTML = '<span class="t-dollar">$ </span><span class="t-cursor" aria-hidden="true"></span>';
+			body.appendChild(cur);
+			return;
+		}
+		const l = terminalLines[index];
+		const pause = l.pause || 0;
+		setTimeout(() => {
+			addLine(l.text, l.cls);
+			setTimeout(() => runLines(index + 1), 30);
+		}, pause);
+	}
+
+	setTimeout(() => runLines(), 600);
+</script>
+
+<style>
+	/* ── Page shell ── */
+	.page {
+		background: var(--hs-navy);
+		color: var(--hs-off-white);
+		font-family: var(--hs-font-display);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.grid-bg {
+		position: absolute;
+		inset: 0;
+		background-image:
+			linear-gradient(var(--hs-border) 1px, transparent 1px),
+			linear-gradient(90deg, var(--hs-border) 1px, transparent 1px);
+		background-size: 40px 40px;
+		pointer-events: none;
+		mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 80%);
+		-webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 80%);
+	}
+
+	/* ── Hero ── */
+	.hero {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		padding: 3.5rem 3rem 2.5rem;
+		position: relative;
+		z-index: 1;
+		align-items: start;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.hero-left {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-family: var(--hs-font-mono);
+		font-size: 11px;
+		color: var(--hs-indigo);
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		margin-bottom: 1.25rem;
+	}
+
+	.eyebrow-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--hs-indigo);
+		animation: pulse-dot 2s ease-in-out infinite;
+		flex-shrink: 0;
+	}
+
+	@keyframes pulse-dot {
+		0%, 100% { opacity: 1; transform: scale(1); }
+		50%       { opacity: 0.4; transform: scale(0.7); }
+	}
+
+	.hero-name {
+		font-family: var(--hs-font-display);
+		font-size: clamp(2.4rem, 5vw, 3.4rem);
+		font-weight: 700;
+		line-height: 1.05;
+		letter-spacing: -0.03em;
+		color: var(--hs-off-white);
+		margin: 0 0 0.5rem;
+	}
+
+	.hero-name .accent { color: var(--hs-indigo); }
+
+	.hero-title {
+		font-size: 1rem;
+		color: var(--hs-slate-2);
+		font-weight: 400;
+		margin: 0 0 1.75rem;
+		line-height: 1.5;
+	}
+
+	.hero-bio {
+		font-size: 0.9rem;
+		color: var(--hs-off-white-dim);
+		line-height: 1.8;
+		max-width: 36rem;
+		margin: 0 0 1.75rem;
+	}
+
+	.hero-bio strong {
+		color: var(--hs-off-white);
+		font-weight: 600;
+	}
+
+	/* ── Tags ── */
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-bottom: 1.75rem;
+	}
+
+	.tag {
+		font-family: var(--hs-font-mono);
+		font-size: 10.5px;
+		padding: 4px 10px;
+		border-radius: 4px;
+		border: 1px solid var(--hs-border);
+		color: var(--hs-slate-2);
+		background: var(--hs-navy-2);
+		letter-spacing: 0.04em;
+	}
+
+	.tag.highlight {
+		border-color: var(--hs-indigo-border);
+		color: var(--hs-indigo);
+		background: var(--hs-indigo-dim);
+	}
+
+	/* ── Buttons ── */
+	.actions {
+		display: flex;
+		gap: 12px;
+		margin-bottom: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.btn {
+		font-family: var(--hs-font-display);
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		padding: 0.6rem 1.4rem;
+		border-radius: 6px;
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+	}
+
+	.btn-primary {
+		background: var(--hs-indigo);
+		color: #fff;
+		border: 1px solid var(--hs-indigo);
+	}
+
+	.btn-primary:hover { background: #3d5eee; border-color: #3d5eee; }
+
+	.btn-ghost {
+		background: transparent;
+		color: var(--hs-slate-2);
+		border: 1px solid var(--hs-border);
+	}
+
+	.btn-ghost:hover {
+		border-color: var(--hs-indigo-border);
+		color: var(--hs-indigo);
+	}
+
+	/* ── Socials ── */
+	.socials {
+		display: flex;
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+
+	.social-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 0.78rem;
+		color: var(--hs-slate);
+		text-decoration: none;
+		font-family: var(--hs-font-mono);
+		transition: color 0.15s ease;
+	}
+
+	.social-link:hover { color: var(--hs-indigo); }
+
+	/* ── Terminal ── */
+	.terminal-wrap { position: relative; }
+
+	.terminal {
+		background: var(--hs-term-bg);
+		border: 1px solid var(--hs-term-border);
+		border-radius: 10px;
+		overflow: hidden;
+		font-family: var(--hs-font-mono);
+		font-size: 11.5px;
+		line-height: 1.65;
+		box-shadow: 0 20px 40px rgba(16, 19, 28, 0.12);
+	}
+
+	.term-bar {
+		background: var(--hs-term-bg-2);
+		padding: 10px 14px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		border-bottom: 1px solid var(--hs-term-border);
+	}
+
+	.term-dots { display: flex; gap: 6px; }
+
+	.term-dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+	}
+
+	.td-red   { background: #FF5F57; }
+	.td-amber { background: #FEBC2E; }
+	.td-green { background: #28C840; }
+
+	.term-title {
+		flex: 1;
+		text-align: center;
+		font-size: 10px;
+		color: var(--hs-term-muted);
+		letter-spacing: 0.05em;
+	}
+
+	.term-body {
+		padding: 16px;
+		min-height: 340px;
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+	}
+
+	/* Terminal line colours */
+	:global(.term-line)   { display: block; white-space: pre; }
+	:global(.t-dollar)    { color: var(--hs-indigo); }
+	:global(.t-cmd)       { color: var(--hs-term-fg-dim); }
+	:global(.t-muted)     { color: var(--hs-term-muted); }
+	:global(.t-label)     { color: var(--hs-indigo); font-weight: 500; }
+	:global(.t-success)   { color: var(--hs-green); }
+	:global(.t-comment)   { color: #3a4558; }
+	:global(.t-output)    { color: var(--hs-term-fg); }
+	:global(.t-added)     { color: var(--hs-green); }
+	:global(.t-removed)   { color: var(--hs-red-term); }
+	:global(.t-cursor) {
+		display: inline-block;
+		width: 7px;
+		height: 13px;
+		background: var(--hs-indigo);
+		vertical-align: middle;
+		animation: blink 1s step-end infinite;
+	}
+
+	@keyframes blink {
+		0%, 100% { opacity: 1; }
+		50%       { opacity: 0; }
+	}
+
+	/* ── Stats row ── */
+	.stats-row {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1px;
+		background: var(--hs-border);
+		border-top: 1px solid var(--hs-border);
+		border-bottom: 1px solid var(--hs-border);
+		position: relative;
+		z-index: 1;
+	}
+
+	.stat-cell {
+		background: var(--hs-navy);
+		padding: 1.5rem 3rem;
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
+
+	.stat-num {
+		font-family: var(--hs-font-display);
+		font-size: 2rem;
+		font-weight: 700;
+		color: var(--hs-off-white);
+		letter-spacing: -0.03em;
+	}
+
+	.stat-label {
+		font-size: 0.72rem;
+		color: var(--hs-slate);
+		font-family: var(--hs-font-mono);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	/* ── Work section ── */
+	.section {
+		padding: 2.5rem 3rem 3.5rem;
+		position: relative;
+		z-index: 1;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.section-eyebrow {
+		font-family: var(--hs-font-mono);
+		font-size: 10px;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		color: var(--hs-indigo);
+		margin-bottom: 1.5rem;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.section-eyebrow::after {
+		content: '';
+		flex: 1;
+		height: 1px;
+		background: var(--hs-border);
+	}
+
+	.work-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 12px;
+	}
+
+	.work-card {
+		background: var(--hs-navy-2);
+		border: 1px solid var(--hs-border);
+		border-radius: 8px;
+		padding: 1.25rem;
+		transition: border-color 0.15s ease, background 0.15s ease;
+	}
+
+	.work-card:hover {
+		border-color: var(--hs-indigo-border);
+		background: var(--hs-navy-3);
+	}
+
+	.work-card-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		margin-bottom: 0.6rem;
+		gap: 8px;
+	}
+
+	.work-card-title {
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--hs-off-white);
+		line-height: 1.3;
+	}
+
+	.work-card-badge {
+		font-family: var(--hs-font-mono);
+		font-size: 9px;
+		padding: 2px 7px;
+		border-radius: 3px;
+		background: var(--hs-indigo-dim);
+		color: var(--hs-indigo);
+		border: 1px solid var(--hs-indigo-border);
+		white-space: nowrap;
+		flex-shrink: 0;
+		letter-spacing: 0.06em;
+	}
+
+	.work-card-desc {
+		font-size: 0.82rem;
+		color: var(--hs-slate);
+		line-height: 1.65;
+		margin: 0 0 0.9rem;
+	}
+
+	.work-card-stack {
+		display: flex;
+		gap: 6px;
+		flex-wrap: wrap;
+	}
+
+	.stack-pill {
+		font-family: var(--hs-font-mono);
+		font-size: 9.5px;
+		color: var(--hs-slate-2);
+		background: var(--hs-navy-3);
+		border-radius: 3px;
+		padding: 2px 7px;
+	}
+
+	/* ── Responsive ── */
+	@media (max-width: 860px) {
+		.hero {
+			grid-template-columns: 1fr;
+			padding: 2.5rem 1.5rem 2rem;
+			gap: 2.5rem;
+		}
+
+		.stats-row { grid-template-columns: repeat(3, 1fr); }
+
+		.stat-cell { padding: 1.25rem 1.5rem; }
+
+		.section { padding: 2rem 1.5rem 3rem; }
+
+		.work-grid { grid-template-columns: 1fr; }
+	}
+
+	@media (max-width: 520px) {
+		.stats-row { grid-template-columns: 1fr; }
+		.work-grid { grid-template-columns: 1fr; }
+		.actions { flex-direction: column; }
+		.actions .btn { text-align: center; justify-content: center; }
+	}
+
+	/* ── Reduced motion ── */
+	@media (prefers-reduced-motion: reduce) {
+		.eyebrow-dot { animation: none; }
+		:global(.t-cursor) { animation: none; opacity: 1; }
+	}
+</style>

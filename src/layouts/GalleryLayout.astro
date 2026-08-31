@@ -1,0 +1,182 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+	fullBleed?: boolean;
+}
+
+const { title, description, fullBleed = false } = Astro.props;
+
+const path = Astro.url.pathname;
+const tabs = [
+	{ label: 'About Me', href: '/' },
+	{ label: 'Resume', href: '/resume/' },
+	{ label: 'Blog', href: '/blog/' },
+	{ label: 'Portfolio', href: '/portfolio/' },
+	{ label: 'Photography', href: '/photography/' },
+];
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		{description && <meta name="description" content={description} />}
+		<link rel="icon" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<header class="site-header">
+			<nav>
+				<a class="brand" href="/">
+					<span class="brand-mark" aria-hidden="true"></span>
+					Haressh S <span class="brand-role">/ Technical Writer</span>
+				</a>
+				<div class="links">
+					{
+						tabs.map((tab) => (
+							<a href={tab.href} aria-current={isActive(tab.href) ? 'page' : undefined}>
+								{tab.label}
+							</a>
+						))
+					}
+				</div>
+			</nav>
+		</header>
+		<main class:list={[{ 'main-full-bleed': fullBleed }]}>
+			<slot />
+		</main>
+
+		<style is:global>
+			:root {
+				color-scheme: light;
+				--hs-navy: #ffffff;
+				--hs-navy-2: #f3f4f9;
+				--hs-navy-3: #e9ebf5;
+				--hs-indigo: #4f6ef7;
+				--hs-indigo-dim: rgba(79, 110, 247, 0.1);
+				--hs-indigo-border: rgba(79, 110, 247, 0.35);
+				--hs-slate: #6b7280;
+				--hs-slate-2: #4b5468;
+				--hs-off-white: #10131c;
+				--hs-off-white-dim: rgba(16, 19, 28, 0.65);
+				--hs-off-white-low: rgba(16, 19, 28, 0.35);
+				--hs-green: #3ec97a;
+				--hs-amber: #f5a623;
+				--hs-red-term: #e06c75;
+				--hs-border: rgba(16, 19, 28, 0.1);
+				--hs-font-display: 'Space Grotesk', sans-serif;
+				--hs-font-mono: 'JetBrains Mono', monospace;
+
+				/* Dedicated dark tokens for the terminal widget, which stays dark regardless of page theme */
+				--hs-term-bg: #0e1528;
+				--hs-term-bg-2: #141d38;
+				--hs-term-border: rgba(255, 255, 255, 0.08);
+				--hs-term-fg: #f0ede6;
+				--hs-term-fg-dim: #8a97b5;
+				--hs-term-muted: #6b7a99;
+
+				--gallery-bg: var(--hs-navy);
+				--gallery-fg: var(--hs-off-white);
+				--gallery-muted: var(--hs-slate-2);
+				--gallery-border: var(--hs-border);
+				--brand-accent: var(--hs-indigo);
+				--brand-accent-soft: var(--hs-indigo-dim);
+				--brand-block-bg: var(--hs-navy-2);
+				--brand-card-bg: var(--hs-navy-2);
+			}
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				background: var(--gallery-bg);
+				color: var(--gallery-fg);
+				font-family: var(--hs-font-display);
+			}
+			main {
+				max-width: 72rem;
+				margin: 0 auto;
+				padding: 1.5rem 1rem 4rem;
+			}
+			main.main-full-bleed {
+				max-width: none;
+				margin: 0;
+				padding: 0;
+			}
+			a {
+				color: inherit;
+			}
+		</style>
+		<style>
+			.site-header {
+				border-bottom: 1px solid var(--gallery-border);
+			}
+			.site-header nav {
+				max-width: 72rem;
+				min-height: 4rem;
+				margin: 0 auto;
+				padding: 0 1rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+			}
+			.brand {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			.brand-mark {
+				width: 0.7rem;
+				height: 0.7rem;
+				background: var(--brand-accent);
+				flex-shrink: 0;
+			}
+			.brand-role {
+				font-weight: 400;
+				color: var(--gallery-muted);
+				font-size: 0.8rem;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+			}
+			.links {
+				display: flex;
+				gap: 0.25rem;
+				flex-wrap: wrap;
+			}
+			.links a {
+				display: inline-block;
+				text-decoration: none;
+				color: var(--gallery-muted);
+				font-size: 0.85rem;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				padding: 0.4rem 0.7rem;
+				border-radius: 999px;
+				transition:
+					background-color 0.15s ease,
+					color 0.15s ease;
+			}
+			.links a:hover {
+				color: var(--gallery-fg);
+				background: var(--brand-accent-soft);
+			}
+			.links a[aria-current='page'] {
+				color: var(--brand-accent);
+				font-weight: 600;
+				background: var(--brand-accent-soft);
+			}
+		</style>
+	</body>
+</html>
