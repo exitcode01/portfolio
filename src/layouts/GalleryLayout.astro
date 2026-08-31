@@ -8,14 +8,15 @@ interface Props {
 const { title, description, fullBleed = false } = Astro.props;
 
 const path = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
 const tabs = [
-	{ label: 'About Me', href: '/' },
-	{ label: 'Resume', href: '/resume/' },
-	{ label: 'Blog', href: '/blog/' },
-	{ label: 'Portfolio', href: '/portfolio/' },
-	{ label: 'Photography', href: '/photography/' },
+	{ label: 'About Me', href: base },
+	{ label: 'Resume', href: `${base}resume/` },
+	{ label: 'Blog', href: `${base}blog/` },
+	{ label: 'Portfolio', href: `${base}portfolio/` },
+	{ label: 'Photography', href: `${base}photography/` },
 ];
-const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const isActive = (href: string) => (href === base ? path === base : path.startsWith(href));
 ---
 
 <html lang="en">
@@ -24,7 +25,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
 		{description && <meta name="description" content={description} />}
-		<link rel="icon" href="/favicon.svg" />
+		<link rel="icon" href={`${import.meta.env.BASE_URL}favicon.svg`} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -35,7 +36,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 	<body>
 		<header class="site-header">
 			<nav>
-				<a class="brand" href="/">
+				<a class="brand" href={base}>
 					<span class="brand-mark" aria-hidden="true"></span>
 					Haressh S <span class="brand-role">/ Technical Writer</span>
 				</a>

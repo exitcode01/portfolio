@@ -33,7 +33,7 @@ const lightboxPhotos = await Promise.all(
 		{
 			photos.map((photo, index) => (
 				<a
-					href={`/photography/${photo.id}/`}
+					href={`${import.meta.env.BASE_URL}photography/${photo.id}/`}
 					class="thumb"
 					data-lightbox-index={index}
 					aria-label={`Open ${photo.data.title}`}
