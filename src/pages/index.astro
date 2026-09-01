@@ -25,7 +25,6 @@ const tags = [
 	{ label: 'Ollama', highlight: false },
 	{ label: 'CI/CD', highlight: false },
 	{ label: 'Git', highlight: false },
-	{ label: 'Photography', highlight: false },
 ];
 
 const works = [
@@ -53,6 +52,39 @@ const works = [
 		desc: 'Active contributor mapping local neighborhoods — roads, POIs, and building footprints. Writing about the process on the blog.',
 		stack: ['JOSM', 'OSM', 'Field survey'],
 	},
+	{
+		title: 'Docs CI/CD Pipeline',
+		badge: 'GITLAB CI',
+		desc: 'End-to-end pipeline with a custom Ruby Dangerfile bot that auto-reviews merge requests against doc style rules, plus WCAG2AA accessibility testing via pa11y-ci.',
+		stack: ['GitLab CI', 'Ruby', 'pa11y-ci', 'Markdownlint'],
+	},
+	{
+		title: 'Multi-Version Docs Architecture',
+		badge: 'SCALE',
+		desc: '217+ pages across 5 separately-versioned products, with 14 tracked versions of the core product alone — full Docusaurus versioning and IA.',
+		stack: ['Docusaurus', 'Versioning', 'Information Architecture'],
+	},
+	{
+		title: 'LLM-Native Docs',
+		badge: 'AI DOCS',
+		desc: 'Wired documentation to auto-export llms.txt / llms-full.txt and serve over MCP, making the same source directly consumable by AI coding agents.',
+		stack: ['llms.txt', 'MCP', 'Docusaurus plugins'],
+	},
+];
+
+const docTypes = [
+	'Tutorials',
+	'How-to guides',
+	'Conceptual / explanation docs',
+	'Reference docs',
+	'API reference docs',
+	'CLI reference docs',
+	'Feature docs',
+	'Extensibility guides',
+	'Getting started guides',
+	'Troubleshooting / FAQ docs',
+	'Release notes',
+	'Glossary / terminology',
 ];
 
 const terminalLines = [
@@ -92,7 +124,7 @@ const terminalLines = [
 
 <GalleryLayout
 	title="Haressh S — Technical Writer"
-	description="Technical Writer and AI Documentation Engineer. Resume, technical blogs, OpenStreetMap writeups, and photography."
+	description="Technical Writer and AI Documentation Engineer. Resume, technical blogs, and OpenStreetMap writeups."
 	fullBleed
 >
 	<div class="page">
@@ -125,7 +157,6 @@ const terminalLines = [
 				<div class="actions">
 					<a class="btn btn-primary" href={`${import.meta.env.BASE_URL}resume/`}>Resume ↗</a>
 					<a class="btn btn-ghost" href={`${import.meta.env.BASE_URL}blog/`}>Blog</a>
-					<a class="btn btn-ghost" href={`${import.meta.env.BASE_URL}photography/`}>Photography</a>
 				</div>
 
 				<div class="socials">
@@ -140,6 +171,15 @@ const terminalLines = [
 							{s.label.toLowerCase()}
 						</a>
 					))}
+				</div>
+
+				<div class="doc-types-hero">
+					<div class="doc-types-label">Documentation I write</div>
+					<div class="doc-types">
+						{docTypes.map((d) => (
+							<span class="doc-type-pill">{d}</span>
+						))}
+					</div>
 				</div>
 			</div>
 
@@ -431,6 +471,22 @@ const terminalLines = [
 
 	.social-link:hover { color: var(--hs-indigo); }
 
+	/* ── Documentation types (hero) ── */
+	.doc-types-hero {
+		margin-top: 1.75rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--hs-border);
+	}
+
+	.doc-types-label {
+		font-family: var(--hs-font-mono);
+		font-size: 11px;
+		color: var(--hs-indigo);
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		margin-bottom: 0.75rem;
+	}
+
 	/* ── Terminal ── */
 	.terminal-wrap { position: relative; }
 
@@ -638,6 +694,24 @@ const terminalLines = [
 		background: var(--hs-navy-3);
 		border-radius: 3px;
 		padding: 2px 7px;
+	}
+
+	/* ── Documentation types ── */
+	.doc-types {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.doc-type-pill {
+		font-family: var(--hs-font-mono);
+		font-size: 10.5px;
+		padding: 4px 10px;
+		border-radius: 4px;
+		border: 1px solid var(--hs-border);
+		color: var(--hs-slate-2);
+		background: var(--hs-navy-2);
+		letter-spacing: 0.04em;
 	}
 
 	/* ── Responsive ── */
