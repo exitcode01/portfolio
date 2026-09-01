@@ -25,6 +25,8 @@ Technical Writer with 5+ years of technical writing experience, currently at Zoh
 
 **Documentation and tools:** Docs-as-Code, Markdown, release notes, workflow diagrams, SDLC compliance, Git, GitHub, Postman, HTML and CSS, Confluence, VS Code, IntelliJ, MkDocs, Docusaurus, Hugo, GitHub Actions
 
+**Documentation types:** Tutorials, how-to guides, conceptual/explanation docs, reference docs, API reference docs, CLI reference docs, feature docs, extensibility guides, getting started guides, troubleshooting/FAQ docs, release notes, glossary/terminology
+
 ## Experience
 
 ### Zoho Corporation — Technical Writer and AI Documentation Engineer
@@ -36,12 +38,20 @@ _Oct 2022 – Present · Madurai_
 - **Commit message agent:** runs in CI/CD, generates structured commit summaries from staged diffs, standardizing changelogs across teams.
 - **Docs-to-skill-file agent:** converts existing documentation into structured skill files for knowledge capture and reuse.
 - **Local model optimization:** runs Mistral, Llama, Phi, and Qwen via Ollama; tunes prompts to match frontier output quality at a fraction of the cost.
+- **LLM-native docs tooling:** wired documentation to auto-export machine-readable formats (llms.txt, llms-full.txt) and serve over MCP, making existing docs directly consumable by AI coding agents.
+- **Docs deployment authentication:** added an authentication gate to a Docusaurus deployment on Zoho Catalyst (serverless), including an OAuth redirect flow and a fix to a domain-validation bug that was blocking every sign-in.
 
 **Documentation and compliance**
-- Authored user manuals, installation guides, quick reference cards, and troubleshooting docs for server-side and distributed database products.
+- Authored 12+ documentation types — tutorials, how-to guides, API and CLI reference, conceptual/explanation docs, release notes, troubleshooting/FAQ, and glossary/terminology reference — for server-side and distributed database products.
 - Owned release notes and forum posts across multiple products; sat in weekly product meetings to catch doc gaps before launch.
 - Compliance Coordinator: prepared SDLC, incident management, and vulnerability management audit docs. Ran competitor research to inform content strategy.
 - **CI/CD docs pipeline:** owned the complete documentation workflow end-to-end, including a CI/CD pipeline responsible for automated review, linting, and publishing — cutting review time from days to under 20 minutes by automatically capturing all static errors.
+
+**Docs infrastructure and tooling**
+- **Scale:** authored and maintained 217+ MDX/Markdown pages across 5 separately-versioned products, tracking 14 versions of the core product alone through Docusaurus versioning.
+- **CI/CD pipeline:** built a 5-stage GitLab CI pipeline (lint → review → test → deploy) with diff-scoped markdownlint and a custom Ruby Dangerfile bot that auto-posts merge-request review comments against an extensible doc style rule-set.
+- **Accessibility testing:** wired pa11y-ci WCAG2AA testing into CI via a custom readiness-polling script that generates automated compliance reports.
+- **Custom components:** built a jargon glossary system, compatibility-framework banners, and a font-size accessibility control used across the docs site.
 
 ### Inshorts — Content Specialist
 
