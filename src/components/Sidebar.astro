@@ -4,8 +4,13 @@ import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.ast
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 
 const { sidebar, id } = Astro.locals.starlightRoute;
+const base = import.meta.env.BASE_URL;
 
 const topSegment = id.split('/')[0];
+
+// Portfolio sample pages are independent writing samples, not a docs section —
+// show a simple way back up instead of a full sibling list of unrelated samples.
+const isPortfolioSample = topSegment === 'portfolio' && id !== 'portfolio' && id !== 'portfolio/index';
 
 function firstSegment(href: string) {
 	return href.replace(/^\/|\/$/g, '').split('/')[0];
@@ -20,9 +25,29 @@ const scopedSidebar = sidebar.filter(belongsToCurrentSection);
 ---
 
 <SidebarPersister>
-	<SidebarSublist sublist={scopedSidebar} />
+	{
+		isPortfolioSample ? (
+			<a class="back-to-portfolio" href={`${base}portfolio/`}>
+				← Back to Portfolio
+			</a>
+		) : (
+			<SidebarSublist sublist={scopedSidebar} />
+		)
+	}
 </SidebarPersister>
 
 <div class="md:sl-hidden">
 	<MobileMenuFooter />
 </div>
+
+<style>
+	.back-to-portfolio {
+		display: inline-block;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+	}
+	.back-to-portfolio:hover {
+		color: var(--sl-color-white);
+	}
+</style>
