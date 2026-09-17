@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+	--sl-font: 'Space Grotesk', sans-serif;
+	--sl-font-mono: 'JetBrains Mono', monospace;
+
+	--sl-color-accent-low: rgba(79, 110, 247, 0.1);
+	--sl-color-accent: #4f6ef7;
+	--sl-color-accent-high: #1c2f8f;
+	--sl-color-text-accent: #4f6ef7;
+
+	--sl-color-white: #10131c;
+	--sl-color-gray-1: #262b3d;
+	--sl-color-gray-2: #4b5468;
+	--sl-color-gray-3: #6b7280;
+	--sl-color-gray-4: #9198a8;
+	--sl-color-gray-5: rgba(16, 19, 28, 0.14);
+	--sl-color-gray-6: #f3f4f9;
+	--sl-color-gray-7: #f8f9fc;
+	--sl-color-black: #ffffff;
+
+	--sl-color-bg: #ffffff;
+	--sl-color-bg-nav: #ffffff;
+	--sl-color-bg-sidebar: #ffffff;
+	--sl-color-bg-inline-code: #f3f4f9;
+	--sl-color-hairline-shade: rgba(16, 19, 28, 0.1);
+	--sl-color-hairline-light: rgba(16, 19, 28, 0.1);
+	--sl-color-hairline: rgba(16, 19, 28, 0.1);
+}
+
+@media print {
+	.site-tabs,
+	.print-btn,
+	[data-pagefind-ignore] {
+		display: none !important;
+	}
+
+	.sl-container {
+		max-width: none !important;
+	}
+
+	body {
+		color: #000;
+		background: #fff;
+	}
+}
