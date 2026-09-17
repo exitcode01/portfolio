@@ -13,25 +13,25 @@ Writing samples from documentation work I've done, sanitized to remove confident
 
 **Reader-facing docs**
 
-- [Tutorial: Create a Basic Calendar App](/portfolio/tutorial-calendar-view/) — a 7-part hands-on tutorial
-- [How-To: Generate Config Classes from Schema](/portfolio/how-to-generate-config/)
-- [Reference: Glossary](/portfolio/glossary/)
-- [Reference: CLI Command Reference](/portfolio/cli-reference/)
-- [How-To: Automate PR Review with the CLI in GitHub Actions](/portfolio/cli-pr-review-automation/)
-- [Troubleshooting: Linux /tmp noexec Error](/portfolio/troubleshooting-tmp-noexec/)
-- [Explanation: Framework Architecture](/portfolio/explanation-architecture/) — a 3-chapter conceptual deep dive
-- [Explanation: Working with Datasources](/portfolio/explanation-datasources/)
-- [Release Notes](/portfolio/release-notes/)
+- [Tutorial: Create a Basic Calendar App](tutorial-calendar-view/) — a 7-part hands-on tutorial
+- [How-To: Generate Config Classes from Schema](how-to-generate-config/)
+- [Reference: Glossary](glossary/)
+- [Reference: CLI Command Reference](cli-reference/)
+- [How-To: Automate PR Review with the CLI in GitHub Actions](cli-pr-review-automation/)
+- [Troubleshooting: Linux /tmp noexec Error](troubleshooting-tmp-noexec/)
+- [Explanation: Framework Architecture](explanation-architecture/) — a 3-chapter conceptual deep dive
+- [Explanation: Working with Datasources](explanation-datasources/)
+- [Release Notes](release-notes/)
 
 **Docs engineering / process**
 
-- [Applying Diataxis Across Multiple Product Lines](/portfolio/process-diataxis-at-scale/)
-- [Versioning Documentation for 14 Concurrent Releases](/portfolio/process-versioning/)
-- [Making Docs Machine-Readable for AI Agents](/portfolio/process-mcp-docs/)
-- [Auth-Gating a Docusaurus Site on Serverless Infra](/portfolio/process-auth-gate/)
-- [A Docs-as-Code CI/CD Pipeline with Automated Style Review](/portfolio/process-cicd-pipeline/)
-- [Automating WCAG2AA Accessibility Audits in CI](/portfolio/process-accessibility/)
+- [Applying Diataxis Across Multiple Product Lines](process-diataxis-at-scale/)
+- [Versioning Documentation for 14 Concurrent Releases](process-versioning/)
+- [Making Docs Machine-Readable for AI Agents](process-mcp-docs/)
+- [Auth-Gating a Docusaurus Site on Serverless Infra](process-auth-gate/)
+- [A Docs-as-Code CI/CD Pipeline with Automated Style Review](process-cicd-pipeline/)
+- [Automating WCAG2AA Accessibility Audits in CI](process-accessibility/)
 
 **Other**
 
-- [API Documentation](/portfolio/api-docs/) — placeholder, coming soon
+- [API Documentation](api-docs/) — placeholder, coming soon

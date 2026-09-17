@@ -13,7 +13,7 @@ head:
 ---
 
 :::note[Sanitized writing sample]
-The framework discussed here is referred to as **Vista** and its backend host platform as **Corebase**, matching the [architecture explanation](/portfolio/explanation-architecture/) and [datasources explanation](/portfolio/explanation-datasources/) elsewhere in this portfolio. Internal links and internal-only Javadoc hosts have been removed. A glossary is a small, easy-to-overlook genre — but for a framework with this much of its own vocabulary (UIControl, DSContext, view pipeline...), it's often the single doc a new reader opens first.
+The framework discussed here is referred to as **Vista** and its backend host platform as **Corebase**, matching the [architecture explanation](../explanation-architecture/) and [datasources explanation](../explanation-datasources/) elsewhere in this portfolio. Internal links and internal-only Javadoc hosts have been removed. A glossary is a small, easy-to-overlook genre — but for a framework with this much of its own vocabulary (UIControl, DSContext, view pipeline...), it's often the single doc a new reader opens first.
 :::
 
 This document collects terminology used throughout Vista's documentation, with a brief explanation of each term.

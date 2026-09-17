@@ -13,7 +13,7 @@ head:
 ---
 
 :::note[Sanitized writing sample]
-The AI coding assistant here is referred to as **Nova**, matching the [troubleshooting sample](/portfolio/troubleshooting-tmp-noexec/) and [release notes](/portfolio/release-notes/) elsewhere in this portfolio. Company-specific auth references have been genericized; everything else — structure, tables, and option semantics — is as originally written. Pure reference material, deliberately free of narrative: a reader should be able to scan straight to the flag they need.
+The AI coding assistant here is referred to as **Nova**, matching the [troubleshooting sample](../troubleshooting-tmp-noexec/) and [release notes](../release-notes/) elsewhere in this portfolio. Company-specific auth references have been genericized; everything else — structure, tables, and option semantics — is as originally written. Pure reference material, deliberately free of narrative: a reader should be able to scan straight to the flag they need.
 :::
 
 > Looking for usage patterns and examples? See the CLI Usage Guide.

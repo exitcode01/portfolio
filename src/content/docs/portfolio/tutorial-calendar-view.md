@@ -471,4 +471,4 @@ You've completed the basic calendar app: a client contract worked out first, and
 
 ## What's next
 
-Congratulations — you've completed the tutorial. A few ways to go further: read the [framework's architecture explanation](/portfolio/explanation-architecture/) to understand the bigger picture behind the pieces you just used, or the [datasources explanation](/portfolio/explanation-datasources/) for how a real view would fetch data instead of computing it in-memory.
+Congratulations — you've completed the tutorial. A few ways to go further: read the [framework's architecture explanation](../explanation-architecture/) to understand the bigger picture behind the pieces you just used, or the [datasources explanation](../explanation-datasources/) for how a real view would fetch data instead of computing it in-memory.
