@@ -4,6 +4,7 @@ import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.ast
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 
 const { sidebar, id } = Astro.locals.starlightRoute;
+const base = import.meta.env.BASE_URL;
 
 const topSegment = id.split('/')[0];
 
@@ -26,7 +27,7 @@ const scopedSidebar = sidebar.filter(belongsToCurrentSection);
 <SidebarPersister>
 	{
 		isPortfolioSample ? (
-			<a class="back-to-portfolio" href="/portfolio/">
+			<a class="back-to-portfolio" href={`${base}portfolio/`}>
 				← Back to Portfolio
 			</a>
 		) : (

@@ -38,7 +38,7 @@ const lightboxPhotos = await Promise.all(
 	title={`${current.data.title} — Photography`}
 	description={current.data.description}
 >
-	<p><a class="back-link" href="/photography/">&larr; Back to gallery</a></p>
+	<p><a class="back-link" href={`${import.meta.env.BASE_URL}photography/`}>&larr; Back to gallery</a></p>
 	<h1>{current.data.title}</h1>
 	{current.data.description && <p class="intro">{current.data.description}</p>}
 	<Image src={current.data.image} alt={current.data.title} width={1200} height={800} class="hero" />

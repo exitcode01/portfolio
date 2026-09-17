@@ -1,20 +1,21 @@
 ---
 const path = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
 
 const tabs = [
-	{ label: 'About Me', href: '/' },
-	{ label: 'Resume', href: '/resume/' },
-	{ label: 'Blog', href: '/blog/' },
-	{ label: 'Portfolio', href: '/portfolio/' },
-	{ label: 'Photography', href: '/photography/' },
+	{ label: 'About Me', href: base },
+	{ label: 'Resume', href: `${base}resume/` },
+	{ label: 'Blog', href: `${base}blog/` },
+	{ label: 'Portfolio', href: `${base}portfolio/` },
+	{ label: 'Photography', href: `${base}photography/` },
 ];
 
-const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const isActive = (href: string) => (href === base ? path === base : path.startsWith(href));
 ---
 
 <nav class="site-tabs" aria-label="Sections" data-pagefind-ignore>
 	<div class="site-tabs-inner">
-		<a class="brand" href="/">
+		<a class="brand" href={base}>
 			<span class="brand-mark" aria-hidden="true"></span>
 			Haressh S <span class="brand-role">/ Technical Writer</span>
 		</a>

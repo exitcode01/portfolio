@@ -2,8 +2,12 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+const isDev = process.argv.includes('dev');
+
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://exitcode01.github.io',
+	base: isDev ? '/' : '/portfolio/',
 	integrations: [
 		starlight({
 			title: 'Haressh S',
