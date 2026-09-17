@@ -13,7 +13,7 @@ head:
 ---
 
 :::note[Sanitized writing sample]
-The AI coding assistant here is referred to as **Nova**, matching the [CLI reference](/portfolio/cli-reference/) elsewhere in this portfolio. Everything else — the workflow YAML, the security reasoning, and the explanatory prose — is as originally written; this was one of a small set of ready-to-use automation samples I wrote for the CLI docs, alongside similar ones for issue triage and dependency-alert response.
+The AI coding assistant here is referred to as **Nova**, matching the [CLI reference](../cli-reference/) elsewhere in this portfolio. Everything else — the workflow YAML, the security reasoning, and the explanatory prose — is as originally written; this was one of a small set of ready-to-use automation samples I wrote for the CLI docs, alongside similar ones for issue triage and dependency-alert response.
 :::
 
 Automate code review for every pull request. Nova runs autonomously in GitHub Actions, analyzes the diff, and posts a detailed review comment with inline suggestions.

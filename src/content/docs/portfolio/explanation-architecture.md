@@ -103,4 +103,4 @@ public interface ViewModelWriter {
 
 ## Where to go from here
 
-The [calendar-view tutorial](/portfolio/tutorial-calendar-view/) is the most direct way to see these elements in use, and the [datasources explanation](/portfolio/explanation-datasources/) picks up exactly where `DSContext` left off above.
+The [calendar-view tutorial](../tutorial-calendar-view/) is the most direct way to see these elements in use, and the [datasources explanation](../explanation-datasources/) picks up exactly where `DSContext` left off above.
